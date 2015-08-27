@@ -1,0 +1,72 @@
+aviadle, lior_13
+Aviad Levy (303055388), Lior Cohen (204770911)
+Ex: 5
+
+FILES:
+srftp.h         - A header file that represents a server.
+srftp.cpp       - Represents a server.
+clftp.h         - A header file that represents a client.
+clftp.cpp       -Represents a client.
+Makefile        - A makefile to make executable srftp and clftp with the 'make' order
+README          - this file
+
+REMARKS:
+
+
+
+ANSWERS: 
+
+Question 1 - Reliable file transfer protocol over UDP connection. 
+
+The main three problems that can happen when using UDP as appose to TCP or:
+	 1) packets duplication
+	 2) packets loss
+	 3) packets arrive in wrong order
+We will describe a protocol that deals with these problems. (the protocol we will described is 
+'above' the program we implemented in this excersize). 
+Any file that the client sends should be sent in packets and the packets should be numbered in the 
+beginning of the packet. for instance, the first packet of the file should start with the following
+text:"1 '\n', the second packet with"2 '\n', etc.
+The server should allocate memory for each client (in the size of the file that he is sending - 
+which is sent by the client as we implemented in this ex.). The server waits to get packets from the
+client. If he receives the right packet (the number that he is expecting) he deals with it as we 
+did in this ex.. If the server receives the wrong packet then: if he had already received it (its 
+number is smaller than the expected packet number) he ignores it (since it is duplicated). This 
+solves problem number 1. If it didn't get it (its number is higher then the one he is expecting),
+the server should save it in a specific memory that he allocated for the client for this purpose.
+note that the server knows how long the file is and therefore if he expects any more packets. 
+if the server is expecting more packets, he checks in the"missing packets memory" to see if the
+next packet is there . If it is, the server treats it like a regular packet that was received
+(adds it to the file and frees the memory). This solves problem 3. If the server didn't receive the
+expected packet, it starts a timer and waits for time quantum set in advance. if it doesn't
+receive any packet it sends an error message to the client and exits. This solves problem 2.
+
+As we explained, the protocol we described is a UDP based protocol that handles problems in a
+similar way to the TCP protocol. This protocol is more efficient than the TCP since it saves the 
+overhead since the client can send the  packets continusely and doesnt have to wait for a response 
+from the server.
+
+The main difference between our implementation and the protocol weve just described is that in our 
+program the client waits for a response for a server (the response says that the server received a
+proper file size) and only then it can send the next packet. It's more similar to TCP because of the
+interaction between the server and the client.
+
+Question 2: performance evaluation
+We evaluated the time it takes to transferr 8 different files.
+The following table contains the file size in bytes (first coloumn), the time it took to transfer
+within the computer itself (second coloumn) and the time it took to transfer over the network(third
+column). The time is represented in miliseconds.
+
+19 39.959 40.258
+427 40.437 40.785
+6700 40.360 40.887
+9500 40.718 41.009
+2700000 44.000 48.500
+14000000 57.000 156.66
+41000000 99.500 397.88
+81000000 163.000 760.365
+    
+The results show that the time takes to send files over the network is significantly longer than on 
+the same computer. It is espacially noticeable in large files. These results make sense since sending
+over the network requires routing through several machines.
+

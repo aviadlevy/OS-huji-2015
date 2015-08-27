@@ -1,0 +1,83 @@
+aviadle, lior_13
+Aviad Levy (303055388), Lior Cohen (204770911)
+Ex: 4
+
+FILES:
+CachingFileSystem.cpp  - A chaching file system
+Makefile               - A makefile
+README                 - this file
+
+REMARKS:
+
+None.
+
+ANSWERS: Theoretical part
+
+Question 1:
+	     This is not always faster than accessing the disk, because although it provides a better performance,
+	     but if the data we need is not in the cache, we should search for it in the disk, therefore the seek for
+	     this piece of data takes search-in-cache time longer.
+
+Question 2:
+		 In case the access to the cache blocks is being accessed uniformly, we should sort the list many times,
+		 so it might be a bad idea to use the "Sorted List based implementation", so the 1st way is better.
+		 However, if there is a large difference between the counters of the blocks, there is a high probability
+		 that the same block will be removed, due to it's low counter, what's makes the 2nd option a better
+		 implementation. 
+
+  
+Question 3:
+		 When we use the LRU algorithm, we need the OS to help in order to make the algorithm work. But, when using
+		 paging, we use more often hardware, so when we try to swap pages in the memory, the execution of the
+		 algorithm will be less efficient when we mix up the two.
+
+
+Question 4:
+		 LRU is better than LFU:
+		 	Let's consider our cache blocks is size of 3 and we have 3 files: A, B, C.
+			Lets say that we read this files and at that order:
+		            A, A, B, B, B, C, C, C
+			If we'll use LRU Cache we would get this process:
+			
+			[A]
+			[A]
+			[A, B]
+			[A, B]
+			[A, B]
+			[A, B, C]
+			[A, B, C]
+			[A, B, C] 
+			
+			In that specific case, when the files read in that order (one after another), we'll always
+			have the right file in the right place in the cache.
+		     
+		 LFU is better than LRU:
+		 	Let's consider our cache blocks is size of 3 and we have 4 files: A, B, C, D.
+			Lets say that we read this files and at that order:
+					A, B, C, A, A, A, A, A, A, A, A, A, A, A, B, C, D, A
+			If we'll use LRU Cache we would get this process:
+
+			[A]
+			[A, B]
+			[A, B, C]
+			[B, C, A] <- A keeps be at the head of the list.
+			[C, A, B]
+			[A, B, C]
+			[B, C, D] <- here, we evict A, and we can do better! 
+			[C, D, A] <- we used A many times, but now we have to cache it again.
+
+		When none of them help at all:
+			Let's consider our cache blocks is size of 3 and we have 4 files: A, B, C, D.
+			Lets say that we read this files and at that order:
+		            A, B, C, D, A, B, C, D, A, B, C, D,......
+			In both cases we'll not have the next file we need in the cache.
+		
+
+Question 5:
+
+	 	 The ideal block-size in this exercise is 4096, because the blocks are of size of 4096 bytes.
+		 If we'll use smaller block-size and we'll want to deal with small files, everything will be OK. But
+		 when we'll want to deal with large files, the efficiency will get worst.
+		 According to bigger block-size - similar to the smaller block-size, but the opposite. 
+   
+   

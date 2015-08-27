@@ -1,0 +1,53 @@
+aviadle, lior_13
+Aviad Levy (303055388), Lior Cohen (204770911)
+Ex: 1
+
+FILES:
+osm.cpp - a file implements the function in osm.h
+README - this file
+Makefile
+
+REMARKS:
+None.
+
+ANSWERS: 
+Task 1:
+
+the program receives only 1 argument - a string. if not (no args or more than 1), an error massage is displayed to the user.
+when 1 argument is received the program does the following:
+- creates a new directory called "os"
+- creates an inner directory called "2015"
+- allocate some memory
+- open a new file inside "os/2015" called "info"
+- write into the file the string and 118 spaces
+- free the file from memory
+- delete the file
+- delete "2015" directory
+- delete "os" directory
+
+Task 2:
+
+=1= Sides effects:
+    A) In time-based program, between a save and restore the program saves the current time stamp, 
+       handles the interrupt and restores the program with the same time stamp saved, but actually needs to
+       continue with the current actual time stamp. i.e - a clock\alarm.
+   
+    B) In case two programs are working on the same file, if one is writing and the other is reading the
+       file, if the writing is done before the reading, the interrupt of the writing may cause the 
+       reading program to read a data that it wasn't meant to read.
+       If two programs are writing into the same file, one of them may override the data that the
+       interrupting program has just wrote.
+
+=2= This solution is not a good idea. If a certain program is running and all interrupts are blocked,
+    the whole idea of 'context switch' is gone. Everything will have to take much longer time to proccess
+    and do operations. There are some programs that waits till the user will respond, so in that case
+    no other interrupts will be able to happen, which is a huge waste of time, resources and efficiency.
+
+Task 3:
+
+Our library functions are built the way they are because we want to measure the time takes a single 
+operation, a function call and a system call to be done. To do so, we take the average time of a given
+amount of iteration calls. To speed up performance, we uses Loop-Unrooling. Thus, we check wheter or not
+there is a remaining of the devision of the number of iterations with the number of operations inside the
+loop, so we'll be able to know if we should perform another iteration of the loop.
+

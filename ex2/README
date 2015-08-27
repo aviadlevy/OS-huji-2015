@@ -1,0 +1,63 @@
+aviadle, lior_13
+Aviad Levy (303055388), Lior Cohen (204770911)
+Ex: 2
+
+FILES:
+Thread.h      - A class that represents a thread, according to the exercise
+Thread.cpp    - The implementation of the Thread header file
+Uthreads.h    - A User-Level Threads Library (uthreads)
+Uthreads.cpp  - The implementation of the uthreads header file
+Makefile      - A makefile to make Uthreads
+README        - this file
+
+REMARKS:
+None.
+
+ANSWERS: 
+task 1:
+		The implementation of RR+.
+		
+task 2: Answers to the questions:
+
+Question 1:
+
+			=Round Robin=
+			Pros:
+			- Fair to small tasks – Each task gets a fixed time slice (quantum) of the CPU before it is forced to
+			  give up the processor. Thus, even if a lot of small tasks enter the system after a large
+			  task has entered, everyone gets to run and the small tasks will be able to make progress; thus, this
+			  scheduler is much “fairer” to short jobs.
+			
+			Cons:
+			- Doesn't support a task-priority-handling, which means that some important task will have to wait
+			  and give up the processor to a less-important tasks.  
+			only one con? if not, 2 more are below:
+			(- If context-switch time is about 10% of the time quantum, then about 10% of the CPU time will be
+			  spent in context switch.
+			- The performance of the scheme depends heavily on the size of the time quantum.
+			- No gain for tasks with equal run times – If we have ten tasks in the system which take ten seconds
+			  to run, then we will not have a single completed task until 100 seconds have passed.)
+			
+			
+			=Priority Queue=
+			Pros:
+			- The tasks have a priority, so the more important tasks will get a higher priority to run, while the
+			  lower priority tasks will wait.
+			  
+			Cons:
+			- Can starve low priority class.
+			
+			
+		    === Round Robin + ===
+		    The RR+ got all pros mentioned. 
+		    The RR+ fixes the priority con of the RR (this is a pro of the PQ) and the fact that the RR is "fair",
+		    overcomes the con of the PQ.
+		    
+		    
+Question 2:
+			Example: If I desire to delete a file, which is currently in use, the request will be blocked and will
+			be resumed after the file closes and after I press "Try again" (While "Try again" is the resume
+			function).
+			
+		    
+		    
